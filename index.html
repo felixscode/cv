@@ -32,7 +32,7 @@
 
     h2.title {
       font-size: 1.2em;
-      color: #555;
+      color: #333;
       margin-bottom: 0.5em;
     }
 
@@ -86,11 +86,23 @@
       text-align: center;
       margin-top: 40px;
       font-size: 0.9em;
+      color: #333;
+    }
+  
+    .skill-tag {
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      padding: 4px 10px; /* Added padding to the bottom */
+      font-size: 0.75em;
       color: #666;
+    }
+    .summary {
+      line-height: 1.7;
+      color:#333
     }
   </style>
 
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
 </head>
 <body>
 
@@ -110,11 +122,14 @@
         </div>
         <p class="info">03.09.1995 · Rosenheim · Germany</p>
         <p class="info">Software Developer · AI Engineer</p>
+        <p class="info">German · English (fluent) · Spanish (basics)</p>
         <p class="info"><a href="https://felixschelling.com" target="_blank">felixschelling.com</a></p>
       </header>
-
+      <div class="summary">
+        <p>AI Engineer and Software Developer with 5+ years of experience specializing in reinforcement learning applications for industrial optimization problems. Proven track record of developing innovative solutions for complex engineering challenges. Combining technical expertise with entrepreneurial experience to bridge the gap between AI research and practical industrial applications.</p>
+    </div>
   <section>
-    <h2>Positions</h2>
+    <h2>Professional Experience</h2>
 
     <h3><strong>2024–Today</strong> | Research Assistant at <a href="https://www.th-rosenheim.de">TH Rosenheim</a></h3>
     <ul>
@@ -122,32 +137,64 @@
       <li>Training state-of-the-art models in a distributed training environment</li>
       <li>Integration of the trained models into a real-world <a href="https://www.th-rosenheim.de/die-hochschule/labore/proto-lab">factory lab environment</a></li>
     </ul>
+    <div class="skill-list">
+      <span class="skill-tag">Academic Research</span>
+      <span class="skill-tag">Reinforcement Learning</span>
+      <span class="skill-tag">Dash</span>
+      <span class="skill-tag">SQL</span>
+      <span class="skill-tag">Optuna</span>
+      <span class="skill-tag">Sphinx</span>
+      <span class="skill-tag">Pytest</span>
+  </div>
 
-    <h3><strong>2022–2025</strong> | Co-Founder & CTO at <a href="https://www.a-additive.com">Advanced Additive</a></h3>
+    <h3><strong>2023–2025</strong> | Co-Founder & CTO at <a href="https://www.a-additive.com">Advanced Additive</a></h3>
     <ul>
       <li>Prototyping of a reinforcement learning-based algorithm for pathfinding under domain-specific constraints for 3D printing slicers</li>
       <li>Design of a heuristic algorithm to optimize the density of 3D printed parts utilizing a variable extrusion width</li>
       <li>Deployment of a scalable containerized web app with user management as an alpha release for customers</li>
       <li>Supervision of diverse technical stakeholders for the startup, mainly freelancers and students</li>
     </ul>
+    <div class="skill-list">
+      <span class="skill-tag">Project Management</span>
+      <span class="skill-tag">Reinforcement Learning</span>
+      <span class="skill-tag">Numeric Optimization</span>
+      <span class="skill-tag">Unsupervised Learning</span>
+      <span class="skill-tag">SQL</span>
+      <span class="skill-tag">FastAPI</span>
+      <span class="skill-tag">Docker</span>
+      <span class="skill-tag">Redis</span>
+      <span class="skill-tag">Celery</span>
+      <span class="skill-tag">Dask</span>
+      <span class="skill-tag">CI/CD</span>
 
-    <h3><strong>2020–2022</strong> | Career Break</h3>
+  </div>
+
+    <h3><strong>2021–2023</strong> | Career Break</h3>
     <ul>
       <li>Two years on a bike from Argentina to Alaska</li>
     </ul>
 
-    <h3><strong>2018–2020</strong> | Software Engineer at <a href="https://www.krones.com/">Krones GmbH</a></h3>
+    <h3><strong>2019–2021</strong> | Software Engineer at <a href="https://www.krones.com/">Krones GmbH</a></h3>
     <ul>
       <li>Design and implementation of an RL model for solving a decision problem for a delta robot in a <a href="https://www.youtube.com">palletizing process</a></li>
       <li>Integration of the model into a web app</li>
       <li>Validation and documentation of the solution</li>
     </ul>
+    <div class="skill-list">
+      <span class="skill-tag">Software Design</span>
+      <span class="skill-tag">Reinforcement Learning</span>
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">PyTorch</span>
+      <span class="skill-tag">gRPC</span>
+      <span class="skill-tag">Scrum</span>
+      <span class="skill-tag">Git</span>
+  </div>
   </section>
 
   <section>
     <h2>Education</h2>
 
-    <h3><strong>2018</strong> | Bachelor's Degree in Mechanical Engineering at TH Rosenheim</h3>
+    <h3><strong>2020</strong> | Bachelor's Degree in Mechanical Engineering at TH Rosenheim</h3>
     <ul>
       <li>Thesis: Automated parameter generation for a delta robot using a reinforcement learning model at <a href="https://www.krones.com">Krones</a> (Grade 1.1)</li>
       <li>Voluntary Project: Time series predictions for household ovens using machine learning at <a href="https://www.bsh-group.com/us/">BSH (Bosch/Siemens)</a> (Grade 1.0)</li>
@@ -162,9 +209,8 @@
     </ul>
   </section>
 
+  <footer class="footer">
+      <p>© 2025 Felix Schelling</p>
+  </footer>
 </body>
-<footer class="footer">
-    <p>© 2024 Felix Schelling</p>
-</footer>
-
 </html>

@@ -47,11 +47,19 @@
 
     body {
       font-family: var(--font-family);
-      max-width: 800px;
+      max-width: 210mm;
       margin: var(--margin-auto);
       padding: var(--padding-page);
       line-height: 1.6;
       color: var(--color-primary);
+    }
+
+    /* PDF container for proper A4 sizing */
+    .pdf-container {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: white;
     }
 
     header {
@@ -187,12 +195,26 @@
 
     /* Print and PDF specific styles */
     @media print {
-      body {
-        max-width: 100%;
-        padding: 20px;
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
-      .download-button {
+      html, body {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-size: 11pt;
+        line-height: 1.5;
+        padding: 15mm;
+      }
+
+      .download-button,
+      .button-container {
         display: none !important;
       }
 
@@ -205,30 +227,97 @@
         content: none;
       }
 
+      /* Optimize header for PDF */
+      header {
+        margin-bottom: 15px;
+      }
+
+      .profile-pic {
+        width: 100px;
+        height: 100px;
+        page-break-inside: avoid;
+      }
+
+      h1.name {
+        font-size: 1.6em;
+        margin: 0.3em 0 0.1em;
+      }
+
+      h2.title {
+        font-size: 1em;
+      }
+
+      .info {
+        font-size: 0.85em;
+        line-height: 1.3;
+        margin: 2px 0;
+      }
+
+      .summary {
+        font-size: 0.9em;
+        line-height: 1.5;
+        margin-bottom: 15px;
+      }
+
       /* Prevent page breaks inside elements */
       h2, h3 {
         page-break-after: avoid;
-      }
-
-      ul, ol {
         page-break-inside: avoid;
       }
 
-      /* Ensure profile pic fits nicely */
-      .profile-pic {
+      ul {
+        page-break-inside: auto;
+        margin: 8px 0;
+      }
+
+      li {
         page-break-inside: avoid;
+        margin-bottom: 4px;
+        font-size: 0.9em;
       }
 
       /* Keep sections together when possible */
       section {
-        page-break-inside: avoid;
+        page-break-inside: auto;
+        margin-top: 20px;
+      }
+
+      h2 {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+        padding-bottom: 3px;
+      }
+
+      h3 {
+        font-size: 0.95em;
+        margin: 10px 0 6px 0;
+      }
+
+      .skill-list {
+        margin-top: 6px;
+      }
+
+      .skill-tag {
+        font-size: 0.65em;
+        padding: 2px 6px;
+        margin-right: 4px;
+        margin-top: 3px;
+      }
+
+      footer {
+        margin-top: 20px;
+        font-size: 0.8em;
+      }
+
+      .icons a {
+        font-size: 1.2em;
       }
     }
 
     /* Additional PDF optimization */
     @page {
-      size: A4;
-      margin: 10mm;
+      size: A4 portrait;
+      margin: 0;
     }
   </style>
 </head>
@@ -238,7 +327,7 @@
     <img src="./assets/me.jpg" alt="Felix Schelling" class="profile-pic" />
     <h1 class="name">Felix Schelling</h1>
     <div class="icons">
-      <a href="mailto:mail@felixschelling.com" title="Email"><i class="fas fa-envelope"></i></a>
+      <a href="mailto:contact@felixschelling.com" title="Email"><i class="fas fa-envelope"></i></a>
       <a href="https://www.linkedin.com/in/felix-schelling-337147277/" title="LinkedIn" target="_blank"
         ><i class="fab fa-linkedin"></i
       ></a>
@@ -255,7 +344,7 @@
 
   <section>
     <h2>Professional Experience</h2>
-    <h3><strong>2025–now</strong> | Ai Solution Engineer at <a href="https://www.meggle.de" target="_blank" rel="noopener noreferrer">Meggle/a></h3>
+    <h3><strong>2025–now</strong> | Ai Solution Engineer at <a href="https://www.meggle.de" target="_blank" rel="noopener noreferrer">Meggle</a></h3>
     <h3><strong>2024–2025</strong> | Research Assistant at <a href="https://www.th-rosenheim.de" target="_blank" rel="noopener noreferrer">TH Rosenheim</a></h3>
     <ul>
       <li>Designed and implemented an <a href="https://github.com/proto-lab-ro/jobshoplab" target="_blank" rel="noopener noreferrer">open source</a> reinforcement learning framework for solving job shop scheduling problems</li>
@@ -328,60 +417,16 @@
   <section>
     <h2>Publications & Patents</h2>
     <ul>
-      <li><a href="https://www.google.com" target="_blank" rel="noopener noreferrer">A Production Scheduling Framework for Reinforcement Learning Under Real-World Constraints</a></li>
+      <li><a href="https://arxiv.org/abs/2506.13566" target="_blank" rel="noopener noreferrer">A Production Scheduling Framework for Reinforcement Learning Under Real-World Constraints</a></li>
       <li><a href="https://patents.justia.com/patent/12234048" target="_blank" rel="noopener noreferrer">System and method for automated generation of motion and position parameters of a packaging or palletizing machine for bundle arrangement (Justia Patents)</a></li>
     </ul>
   </section>
 
-  <div class="button-container">
-    <a href="javascript:void(0)" onclick="downloadCV()" class="download-button">
-      <i class="fas fa-download"></i> Download CV
-    </a>
-  </div>
 
   <footer class="footer">
     <p>© 2025 Felix Schelling</p>
   </footer>
 
-  <!-- html2pdf.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-  <script>
-    function downloadCV() {
-      const element = document.body;
-      const opt = {
-        margin: [15, 15, 15, 15],
-        filename: 'Felix_Schelling_CV.pdf',
-        image: { type: 'jpeg', quality: 0.95 },
-        html2canvas: {
-          scale: 1.5,
-          useCORS: true,
-          letterRendering: true,
-          windowWidth: 800
-        },
-        jsPDF: {
-          unit: 'mm',
-          format: 'a4',
-          orientation: 'portrait'
-        },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-
-      // Hide download button before generating PDF
-      const downloadBtn = document.querySelector('.download-button');
-      const originalDisplay = downloadBtn.style.display;
-      downloadBtn.style.display = 'none';
-
-      // Temporarily reduce body padding for better PDF fit
-      const originalPadding = document.body.style.padding;
-      document.body.style.padding = '20px';
-
-      html2pdf().set(opt).from(element).save().then(() => {
-        // Restore download button and padding
-        downloadBtn.style.display = originalDisplay;
-        document.body.style.padding = originalPadding;
-      });
-    }
-  </script>
 </body>
 </html>

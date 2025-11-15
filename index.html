@@ -350,13 +350,14 @@
     function downloadCV() {
       const element = document.body;
       const opt = {
-        margin: [10, 10, 10, 10],
+        margin: [15, 15, 15, 15],
         filename: 'Felix_Schelling_CV.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg', quality: 0.95 },
         html2canvas: {
-          scale: 1,
+          scale: 1.5,
           useCORS: true,
-          letterRendering: true
+          letterRendering: true,
+          windowWidth: 800
         },
         jsPDF: {
           unit: 'mm',
@@ -371,9 +372,14 @@
       const originalDisplay = downloadBtn.style.display;
       downloadBtn.style.display = 'none';
 
+      // Temporarily reduce body padding for better PDF fit
+      const originalPadding = document.body.style.padding;
+      document.body.style.padding = '20px';
+
       html2pdf().set(opt).from(element).save().then(() => {
-        // Restore download button
+        // Restore download button and padding
         downloadBtn.style.display = originalDisplay;
+        document.body.style.padding = originalPadding;
       });
     }
   </script>

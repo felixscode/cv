@@ -1,0 +1,35 @@
+name: Deploy to Hetzner VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy CV to Hetzner
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Hetzner VM
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            # Navigate to deployment directory
+            cd /var/www/cv
+
+            # Pull latest changes
+            git pull origin main
+
+            # Optional: Reload Caddy if needed
+            # systemctl reload caddy
+
+      - name: Deployment successful
+        run: echo "✅ CV successfully deployed to Hetzner VM"

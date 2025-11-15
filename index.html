@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Felix Schelling - CV</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="./assets/me.jpg" />
+  <link rel="apple-touch-icon" href="./assets/me.jpg" />
   <!-- Font Awesome CSS -->
   <link
     rel="stylesheet"
@@ -140,16 +144,24 @@
       font-size: var(--font-size-base);
       color: var(--color-primary);
       text-decoration: none;
-      padding: var(--padding-button);
-      border: 1px solid transparent;
+      padding: 10px 20px;
+      border: 2px solid var(--color-primary);
       border-radius: var(--radius);
       transition: color var(--transition-speed) ease,
-        border-color var(--transition-speed) ease;
+        border-color var(--transition-speed) ease,
+        background-color var(--transition-speed) ease;
+      cursor: pointer;
     }
 
     .download-button:hover {
-      color: var(--color-hover);
+      color: white;
+      background-color: var(--color-hover);
       border-color: var(--color-hover);
+      text-decoration: none;
+    }
+
+    .download-button i {
+      margin-right: 5px;
     }
 
     .button-container {
@@ -171,6 +183,52 @@
     .summary {
       line-height: 1.7;
       color: var(--color-primary);
+    }
+
+    /* Print and PDF specific styles */
+    @media print {
+      body {
+        max-width: 100%;
+        padding: 20px;
+      }
+
+      .download-button {
+        display: none !important;
+      }
+
+      a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+
+      a[href]:after {
+        content: none;
+      }
+
+      /* Prevent page breaks inside elements */
+      h2, h3 {
+        page-break-after: avoid;
+      }
+
+      ul, ol {
+        page-break-inside: avoid;
+      }
+
+      /* Ensure profile pic fits nicely */
+      .profile-pic {
+        page-break-inside: avoid;
+      }
+
+      /* Keep sections together when possible */
+      section {
+        page-break-inside: avoid;
+      }
+    }
+
+    /* Additional PDF optimization */
+    @page {
+      size: A4;
+      margin: 10mm;
     }
   </style>
 </head>
@@ -276,11 +334,48 @@
   </section>
 
   <div class="button-container">
-    <a href="/download" class="download-button">Download</a>
+    <a href="javascript:void(0)" onclick="downloadCV()" class="download-button">
+      <i class="fas fa-download"></i> Download CV as PDF
+    </a>
   </div>
 
   <footer class="footer">
     <p>© 2025 Felix Schelling</p>
   </footer>
+
+  <!-- html2pdf.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+    function downloadCV() {
+      const element = document.body;
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'Felix_Schelling_CV.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          letterRendering: true
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
+          orientation: 'portrait'
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+
+      // Hide download button before generating PDF
+      const downloadBtn = document.querySelector('.download-button');
+      const originalDisplay = downloadBtn.style.display;
+      downloadBtn.style.display = 'none';
+
+      html2pdf().set(opt).from(element).save().then(() => {
+        // Restore download button
+        downloadBtn.style.display = originalDisplay;
+      });
+    }
+  </script>
 </body>
 </html>
